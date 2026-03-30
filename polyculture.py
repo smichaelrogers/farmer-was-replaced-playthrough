@@ -1,5 +1,4 @@
 from movement import *
-from actions import *
 
 def dynamic_planting_with_companions(grid):
 	while True:

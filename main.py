@@ -1,40 +1,36 @@
 from movement import *
-from farming import *
-from dinosaur import farm_bone
 from cactus import farm_cacti
+from maze import farm_treasure
+from hay import farm_hay
+from wood import farm_wood
+from carrot import farm_carrot
+from pumpkin import farm_pumpkin
+from cactus import farm_cacti
+from weird_susbstance import farm_weird_substance
+from dinosaur import farm_bone
 
+target_values = {
+	Items.Hay: 20000000,
+	Items.Wood: 80000000,
+	Items.Carrot: 10000000,
+	Items.Pumpkin: 100000,
+	Items.Cactus: 200000,
+	Items.Bone: 200000,
+	Items.Weird_Substance: 200000,
+	Items.Gold: 10000
+}
 
 def start():
-	do_a_flip()
-	change_hat(Hats.Cactus_Hat)
-	while True:
-		acquire_value_of_item(Items.Hay, 5000000)
-		acquire_value_of_item(Items.Wood, 8000000)
-		acquire_value_of_item(Items.Carrot, 1000000)
-		acquire_value_of_item(Items.Pumpkin, 64000)
-		acquire_value_of_item(Items.Cactus, 10000)
-		farm_bone(200000)
-
-
-def test1():
-	size = get_world_size() - 1
 	move_to(0, 0)
 	do_a_flip()
-	move_to(size, size)
-	do_a_flip()
-	move_to(0, size)
-	do_a_flip()
-	move_to(size, 0)
-	do_a_flip()
-	move_to_start()
-	do_a_flip()
 
-def test2():
-	size = get_world_size()
-	for i in range(size):
-		for j in range(size):
-			print(i, j)
+	# farm_hay(target_values[Items.Hay])
+	farm_wood(target_values[Items.Wood])
+	farm_carrot(target_values[Items.Carrot])
+	farm_pumpkin(target_values[Items.Pumpkin])
+	farm_bone(target_values[Items.Bone])
+	farm_weird_substance(target_values[Items.Weird_Substance])
+	farm_cacti(target_values[Items.Cactus])
+	farm_treasure(target_values[Items.Gold])
 
-# test1()
-# test2()
 start()
