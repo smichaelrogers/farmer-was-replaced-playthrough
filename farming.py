@@ -1,4 +1,5 @@
 from movement import *
+
 GRASS = Grounds.Grassland
 SOIL = Grounds.Soil
 

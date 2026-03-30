@@ -1,5 +1,11 @@
-from util import *
 from movement import *
+
+def farm_cacti(target_value = 100000):
+	while num_items(Items.Cactus < target_value):
+		plant_all()
+		prune_all()
+		sort_all()
+		harvest_all()
 
 def plant_one():
 	if can_harvest():

@@ -1,23 +1,19 @@
 from movement import *
 from farming import *
-import cactus
+from dinosaur import farm_bone
+from cactus import farm_cacti
 
-def farm_cactus():
-	cactus.plant_all()
-	cactus.prune_all()
-	cactus.sort_all()
-	cactus.harvest_all()
 
 def start():
 	do_a_flip()
 	change_hat(Hats.Cactus_Hat)
 	while True:
-		
 		acquire_value_of_item(Items.Hay, 5000000)
 		acquire_value_of_item(Items.Wood, 8000000)
 		acquire_value_of_item(Items.Carrot, 1000000)
 		acquire_value_of_item(Items.Pumpkin, 64000)
 		acquire_value_of_item(Items.Cactus, 10000)
+		farm_bone(200000)
 
 
 def test1():
