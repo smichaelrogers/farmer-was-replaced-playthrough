@@ -19,15 +19,14 @@ def return_and_reset():
 def repeat_move(direction, steps):
 	for _ in range(steps):
 		if not try_move(direction):
-			return_and_reset()
 			return False
 	return True
 
-def perform_dino_pattern():
+def perform_dino_pattern(target_value):
 	world_size = get_world_size()
 	max_index = world_size - 1
 
-	while True:
+	while num_items(Items.Bone) < target_value:
 		if not repeat_move(North, max_index):
 			return
 		if not repeat_move(East, max_index):
@@ -61,7 +60,7 @@ def perform_dino_pattern():
 
 def farm_bone(target_value = 100000):
 	clear()
-
+	set_world_size(32)
 	world_size = get_world_size()
 	if world_size % 2 == 1:
 		set_world_size(world_size - 1)
@@ -72,4 +71,4 @@ def farm_bone(target_value = 100000):
 	change_hat(Hats.Dinosaur_Hat)
 
 	while num_items(Items.Bone) < target_value:
-		perform_dino_pattern()
+		perform_dino_pattern(target_value)

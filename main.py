@@ -6,23 +6,26 @@ from wood import farm_wood
 from carrot import farm_carrot
 from pumpkin import farm_pumpkin
 from cactus import farm_cacti
-from weird_susbstance import farm_weird_substance
+from weird_substance import farm_weird_substance
 from dinosaur import farm_bone
 from sunflower import farm_power
 
+ONE_MILLION = 1000000
+
 target_values = {
-	Items.Hay: 20000000,
-	Items.Wood: 100000000,
-	Items.Carrot: 10000000,
-	Items.Pumpkin: get_cost(Unlocks.Cactus)[Items.Pumpkin],
-	Items.Cactus: get_cost(Unlocks.Mazes)[Items.Cactus],
-	Items.Bone: get_cost(Unlocks.Polyculture)[Items.Bone],
-	Items.Gold: get_cost(Unlocks.Megafarm)[Items.Gold],
-	Items.Weird_Substance: 200000,
-	Items.Power: 10000,
+	Items.Power: 16000,
+	Items.Hay: ONE_MILLION * 10,
+	Items.Wood: ONE_MILLION * 100,
+	Items.Carrot: ONE_MILLION * 100,
+	Items.Pumpkin: ONE_MILLION * 30,
+	Items.Cactus: ONE_MILLION * 16,
+	Items.Bone: ONE_MILLION * 2,
+	Items.Gold: 128000,
+	Items.Weird_Substance: ONE_MILLION,
 }
 
 handlers = {
+	Items.Power: farm_power,
 	Items.Hay: farm_hay,
 	Items.Wood: farm_wood,
 	Items.Carrot: farm_carrot,
@@ -31,7 +34,6 @@ handlers = {
 	Items.Bone: farm_bone,
 	Items.Gold: farm_gold,
 	Items.Weird_Substance: farm_weird_substance,
-	Items.Power: farm_power
 }
 
 def start():

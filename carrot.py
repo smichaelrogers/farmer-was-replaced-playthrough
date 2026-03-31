@@ -1,3 +1,4 @@
+
 def farm_carrot(target_value = 1000000):
 	clear()
 	set_world_size(8)
@@ -24,7 +25,7 @@ def farm_carrot(target_value = 1000000):
 
 	for _ in range(10):
 		for dir in MOVES:
-			# carrots
+			# carrots_target_value
 			till()
 			plant_carrot()
 			use_item(Items.Water)

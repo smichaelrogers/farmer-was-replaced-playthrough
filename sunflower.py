@@ -1,8 +1,7 @@
 from movement import *
 
 def farm_power(target_value = 100000):
-	clear()
-	set_world_size(8)
+	set_world_size(4)
 	while num_items(Items.Power) < target_value:
 		# pre plant
 		for direction in MOVES:

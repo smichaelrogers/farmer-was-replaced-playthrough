@@ -1,7 +1,65 @@
 from movement import *
 
+def repair_pumpkins():
+	size = get_world_size()
+	drone_idx = num_drones()
+	if drone_idx < 5 and drone_idx % 2 == 0:
+		move(East)
+		while True:
+			for i in range(size):
+				for j in range(size):
+					if get_entity_type() == Entities.Dead_Pumpkin:
+						plant(Entities.Pumpkin)
+						if get_water() < 0.4:
+							use_item(Items.Water)
+					move(East)
+					move(East)
+				move(North)
+	elif drone_idx < 5:
+		while True:
+			for i in range(size):
+				for j in range(size):
+					if get_entity_type() == Entities.Dead_Pumpkin:
+						plant(Entities.Pumpkin)
+						if get_water() < 0.4:
+							use_item(Items.Water)
+					move(East)
+					move(East)
+				move(North)
+	elif drone_idx > 4 and drone_idx % 2 == 0:
+		move(North)
+		while True:
+			for i in range(size):
+				for j in range(size):
+					if get_entity_type() == Entities.Dead_Pumpkin:
+						plant(Entities.Pumpkin)
+						if get_water() < 0.4:
+							use_item(Items.Water)
+					move(North)
+					move(North)
+				move(East)
+	else:
+		while True:
+			for i in range(size):
+				for j in range(size):
+					if get_entity_type() == Entities.Dead_Pumpkin:
+						plant(Entities.Pumpkin)
+						if get_water() < 0.4:
+							use_item(Items.Water)
+					move(North)
+					move(North)
+				move(East)
+
 def farm_pumpkin(target_value = 100000):
 	clear()
+	set_world_size(16)
+	NUM_HELPER_DRONES = 7
+	for i in range(NUM_HELPER_DRONES):
+		spawn_drone(repair_pumpkins)
+		do_a_flip()
+		do_a_flip()
+		do_a_flip()
+	
 	while num_items(Items.Pumpkin) < target_value:
 		move_to(0, 0)
 		pumpkin_set = list()
