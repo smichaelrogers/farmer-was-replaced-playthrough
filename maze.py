@@ -1,7 +1,7 @@
 RIGHT = {North: East, East: South, South: West, West: North}
 LEFT = {North: West, East: North, South: East, West: South}
 
-def farm_treasure(target_value = 100000):
+def farm_gold(target_value = 100000):
 	while num_items(Items.Gold) < target_value:
 		AMOUNT = get_world_size() * num_unlocked(Unlocks.Mazes)
 		dir=North
