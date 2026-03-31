@@ -14,7 +14,7 @@ target_values = {
 	Items.Hay: 20000000,
 	Items.Wood: 100000000,
 	Items.Carrot: 10000000,
-	Items.Pumpkin: 100000,
+	Items.Pumpkin: get_cost(Unlocks.Cactus)[Items.Pumpkin],
 	Items.Cactus: get_cost(Unlocks.Mazes)[Items.Cactus],
 	Items.Bone: get_cost(Unlocks.Polyculture)[Items.Bone],
 	Items.Gold: get_cost(Unlocks.Megafarm)[Items.Gold],
