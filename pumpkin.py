@@ -1,5 +1,27 @@
-# from movement import move_to
-from movement import MOVES
+
+def generate_moves(
+		n = get_world_size()**2,
+		world_size = get_world_size(),
+		pos_x = 0,
+		pos_y = 0
+	):
+	moves = []
+	if n > world_size**2:
+		world_moves = generate_moves(world_size**2, world_size, pos_x, pos_y)
+		for i in range(n // world_size**2):
+			moves += world_moves
+		n %= world_size**2
+
+	for i in range(n):
+		if pos_x % world_size == pos_y % world_size:
+			pos_x -= 1
+			moves.append(West)
+		else:
+			pos_y += 1
+			moves.append(North)
+	return moves
+
+MOVES = generate_moves()
 
 def move_to(goal_x, goal_y, current_x = get_pos_x(), current_y = get_pos_y(), ws = get_world_size()):
 	hws = ws // 2
@@ -47,46 +69,41 @@ def handle_pumpkin_tile():
 def farm_pumpkin(target_value = 100000):
 	clear()
 	move_to(0, 0)
+	pumpkin_set = list()
+	# 1. just plant and move
 	for dir in MOVES:
-		till()
+		if get_ground_type() == Grounds.Grassland:
+			till()
 		plant(Entities.Pumpkin)
 		move(dir)
-	while num_items(Items.Pumpkin) < target_value:
-		pumpkin_set = list()
-		# 1. just plant and move
-		for dir in MOVES:
-			if get_ground_type() == Grounds.Grassland:
-				till()
+
+	# 2. plant and append to dict
+	for dir in MOVES:
+		if not can_harvest():
 			plant(Entities.Pumpkin)
-			move(dir)
+			pumpkin_set.append((get_pos_x(), get_pos_y()))
+		move(dir)
 
-		# 2. plant and append to dict
-		for dir in MOVES:
-			if not can_harvest():
-				plant(Entities.Pumpkin)
-				pumpkin_set.append((get_pos_x(), get_pos_y()))
-			move(dir)
-
-		# 3. visit all missing pumpkins until we have enough fertilizer
-		current_pos = (get_pos_x(), get_pos_y())
-		while len(pumpkin_set) > num_items(Items.Fertilizer)/2+2:
-			for pos in list(pumpkin_set):
-				move_to_pos(pos, current_pos)
-				current_pos = pos
-				if can_harvest():
-					pumpkin_set.remove(pos)
-				else:
-					plant(Entities.Pumpkin)
-					if get_water() < 0.4:
-						use_item(Items.Water)
-
-		# 4. navigate through all remaining pumpkins and force
-		for pos in pumpkin_set:
+	# 3. visit all missing pumpkins until we have enough fertilizer
+	current_pos = (get_pos_x(), get_pos_y())
+	while len(pumpkin_set) > num_items(Items.Fertilizer)/2+2:
+		for pos in list(pumpkin_set):
 			move_to_pos(pos, current_pos)
 			current_pos = pos
-			while not can_harvest():
+			if can_harvest():
+				pumpkin_set.remove(pos)
+			else:
 				plant(Entities.Pumpkin)
-				use_item(Items.Fertilizer)
+				if get_water() < 0.4:
+					use_item(Items.Water)
 
-		# 5. harvest
-		harvest()
+	# 4. navigate through all remaining pumpkins and force
+	for pos in pumpkin_set:
+		move_to_pos(pos, current_pos)
+		current_pos = pos
+		while not can_harvest():
+			plant(Entities.Pumpkin)
+			use_item(Items.Fertilizer)
+
+	# 5. harvest
+	harvest()

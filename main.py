@@ -15,9 +15,9 @@ target_values = {
 	Items.Wood: 100000000,
 	Items.Carrot: 10000000,
 	Items.Pumpkin: 100000,
-	Items.Cactus: 200000,
-	Items.Bone: 200000,
-	Items.Gold: 10000,
+	Items.Cactus: get_cost(Unlocks.Mazes)[Items.Cactus],
+	Items.Bone: get_cost(Unlocks.Polyculture)[Items.Bone],
+	Items.Gold: get_cost(Unlocks.Megafarm)[Items.Gold],
 	Items.Weird_Substance: 200000,
 	Items.Power: 10000,
 }
