@@ -3,62 +3,29 @@ from movement import *
 def repair_pumpkins():
 	size = get_world_size()
 	drone_idx = num_drones()
-	if drone_idx < 5 and drone_idx % 2 == 0:
+	for _ in range(drone_idx - 2):
 		move(East)
-		while True:
-			for i in range(size):
-				for j in range(size):
-					if get_entity_type() == Entities.Dead_Pumpkin:
-						plant(Entities.Pumpkin)
-						if get_water() < 0.4:
-							use_item(Items.Water)
-					move(East)
-					move(East)
+	
+	while True:
+		for i in range(size):
+			for j in range(size):
+				while get_entity_type() != Entities.Pumpkin or not can_harvest():
+					if get_ground_type() != Grounds.Soil:
+						till()
+					plant(Entities.Pumpkin)
+					if get_water() < 0.4:
+						use_item(Items.Water)
 				move(North)
-	elif drone_idx < 5:
-		while True:
-			for i in range(size):
-				for j in range(size):
-					if get_entity_type() == Entities.Dead_Pumpkin:
-						plant(Entities.Pumpkin)
-						if get_water() < 0.4:
-							use_item(Items.Water)
-					move(East)
-					move(East)
-				move(North)
-	elif drone_idx > 4 and drone_idx % 2 == 0:
-		move(North)
-		while True:
-			for i in range(size):
-				for j in range(size):
-					if get_entity_type() == Entities.Dead_Pumpkin:
-						plant(Entities.Pumpkin)
-						if get_water() < 0.4:
-							use_item(Items.Water)
-					move(North)
-					move(North)
-				move(East)
-	else:
-		while True:
-			for i in range(size):
-				for j in range(size):
-					if get_entity_type() == Entities.Dead_Pumpkin:
-						plant(Entities.Pumpkin)
-						if get_water() < 0.4:
-							use_item(Items.Water)
-					move(North)
-					move(North)
-				move(East)
+			move(East)
 
 def farm_pumpkin(target_value = 100000):
+	# set_execution_speed(0.5)
 	clear()
-	set_world_size(16)
-	NUM_HELPER_DRONES = 7
-	for i in range(NUM_HELPER_DRONES):
-		spawn_drone(repair_pumpkins)
+	set_world_size(32)
+	handle = spawn_drone(repair_pumpkins)
+	while handle != None:
 		do_a_flip()
-		do_a_flip()
-		do_a_flip()
+		handle = spawn_drone(repair_pumpkins)
 	
 	while num_items(Items.Pumpkin) < target_value:
 		move_to(0, 0)

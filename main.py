@@ -17,10 +17,10 @@ target_values = {
 	Items.Hay: ONE_MILLION * 10,
 	Items.Wood: ONE_MILLION * 100,
 	Items.Carrot: ONE_MILLION * 100,
-	Items.Pumpkin: ONE_MILLION * 30,
+	Items.Pumpkin: ONE_MILLION * 10,
 	Items.Cactus: ONE_MILLION * 16,
-	Items.Bone: ONE_MILLION * 2,
-	Items.Gold: 128000,
+	Items.Bone: ONE_MILLION * 100,
+	Items.Gold: ONE_MILLION,
 	Items.Weird_Substance: ONE_MILLION,
 }
 
@@ -37,12 +37,12 @@ handlers = {
 }
 
 def start():
-	clear()
-	move_to(0, 0)
-	set_world_size(8)
-	do_a_flip()
-
-	for key in handlers:
-		handlers[key](target_values[key])
+	while True:
+		clear()
+		move_to(0, 0)
+		do_a_flip()
+		for key in handlers:
+			if num_items(key) < target_values[key]:
+				handlers[key](target_values[key])
 
 start()

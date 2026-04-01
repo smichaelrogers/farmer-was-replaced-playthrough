@@ -21,7 +21,7 @@ def sort_and_farm_cacti():
 
 def farm_cacti(target_value = 1000000):
 	clear()
-	set_world_size(16)
+	set_world_size(8)
 	move_to(0, 0)
 	while num_items(Items.Cactus) < target_value:
 		sort_and_farm_cacti()

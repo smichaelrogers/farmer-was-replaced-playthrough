@@ -1,5 +1,6 @@
+_target_value = 1000000
 def calculate_pair_steps(world_size):
-		return ((world_size - 6) // 2 + 2)
+	return ((world_size - 6) // 2 + 2)
 
 def try_move(direction):
 	return move(direction)
@@ -13,12 +14,15 @@ def move_home():
 def return_and_reset():
 	change_hat(Hats.Straw_Hat)
 	move_home()
+	clear()
 	change_hat(Hats.Dinosaur_Hat)
-	perform_dino_pattern()
+	global _target_value
+	perform_dino_pattern(_target_value)
 
 def repeat_move(direction, steps):
 	for _ in range(steps):
 		if not try_move(direction):
+			return_and_reset()
 			return False
 	return True
 
@@ -59,13 +63,11 @@ def perform_dino_pattern(target_value):
 			return
 
 def farm_bone(target_value = 100000):
+	global _target_value
+	_target_value = target_value
 	clear()
 	set_world_size(32)
-	world_size = get_world_size()
-	if world_size % 2 == 1:
-		set_world_size(world_size - 1)
-		world_size -= 1
-
+	
 	change_hat(Hats.Straw_Hat)
 	move_home()
 	change_hat(Hats.Dinosaur_Hat)
